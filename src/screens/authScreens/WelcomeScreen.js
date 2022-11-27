@@ -13,8 +13,29 @@ import {colors, title, parameters} from '../../global/styles';
 import * as Animatable from 'react-native-animatable';
 import Swiper from 'react-native-swiper';
 import {color} from 'react-native-elements/dist/helpers';
+import {SignInContext} from '../../context/authContext';
+import {useContext} from 'react';
+import {useEffect} from 'react';
+import auth from '@react-native-firebase/auth';
 
 export default function WelcomeScreen({navigation}) {
+  const {dispatchSignedIn} = useContext(SignInContext);
+  useEffect(() => {
+    auth().onAuthStateChanged(user => {
+      if (user) {
+        dispatchSignedIn({
+          type: 'UPDATE_SIGN_IN',
+          payload: {userToken: 'signed-in'},
+        });
+      } else {
+        dispatchSignedIn({
+          type: 'UPDATE_SIGN_IN',
+          payload: {userToken: null},
+        });
+      }
+    });
+  }, []);
+
   return (
     <View style={{flex: 1}}>
       <View
@@ -89,6 +110,9 @@ export default function WelcomeScreen({navigation}) {
             title="Create an account"
             buttonStyle={styles.createButton}
             titleStyle={styles.createButtonTitle}
+            onPress={() => {
+              navigation.navigate('SignUpScreen');
+            }}
           />
         </View>
       </View>

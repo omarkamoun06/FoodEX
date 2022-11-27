@@ -1,6 +1,8 @@
 ﻿import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import React from 'react';
+import {ForgotPassword} from '../screens/authScreens/ForgotPassword';
 import {SignInScreen} from '../screens/authScreens/SignInScreen';
+import SignUpScreen from '../screens/authScreens/SignUpScreen';
 import WelcomeScreen from '../screens/authScreens/WelcomeScreen';
 import HomeScreen from '../screens/HomeScreen';
 import RestaurantMapScreen from '../screens/RestaurantMapScreen';
@@ -28,16 +30,16 @@ export default function AuthStack() {
         }}
       />
       <Auth.Screen
-        name="DrawerNavigator"
-        component={DrawerNavigator}
+        name="SignUpScreen"
+        component={SignUpScreen}
         options={{
           headerShown: false,
           ...TransitionPresets.RevealFromBottomAndroid,
         }}
       />
       <Auth.Screen
-        name="RestaurantMapScreen"
-        component={RestaurantMapScreen}
+        name="ForgotPassword"
+        component={ForgotPassword}
         options={{
           headerShown: false,
           ...TransitionPresets.RevealFromBottomAndroid,

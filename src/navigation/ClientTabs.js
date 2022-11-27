@@ -15,7 +15,7 @@ export default function RootClientTabs() {
   return (
     <ClientTabs.Navigator
       screenOptions={{
-        tabBarActiveTintColor: colors.buttons,
+        activeTintColor: colors.buttons,
       }}>
       <ClientTabs.Screen
         name="HomeScreen"
@@ -28,6 +28,7 @@ export default function RootClientTabs() {
           ),
         }}
       />
+
       <ClientTabs.Screen
         name="ClientStack"
         component={ClientStack}
@@ -39,6 +40,7 @@ export default function RootClientTabs() {
           ),
         }}
       />
+
       <ClientTabs.Screen
         name="MyOrdersScreen"
         component={MyOrdersScreen}
@@ -50,8 +52,9 @@ export default function RootClientTabs() {
           ),
         }}
       />
+
       <ClientTabs.Screen
-        name="MyAccountScreen"
+        name="MyAccount"
         component={MyAccountScreen}
         options={{
           headerShown: false,

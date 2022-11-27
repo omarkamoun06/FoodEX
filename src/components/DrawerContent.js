@@ -5,11 +5,31 @@
 } from '@react-navigation/drawer';
 import {DarkTheme} from '@react-navigation/native';
 import React from 'react';
+import {Alert} from 'react-native';
 import {StyleSheet, Switch, Text, View} from 'react-native';
 import {Avatar, Icon} from 'react-native-elements';
 import {colors} from '../global/styles';
+import auth from '@react-native-firebase/auth';
+import {useContext} from 'react';
+import {SignInContext} from '../context/authContext';
 
 export default function DrawerContent(props) {
+  const {dispatchSignedIn} = useContext(SignInContext);
+  async function signOut() {
+    try {
+      auth()
+        .signOut()
+        .then(() => {
+          console.log('USER SUCCESSFULLY SIGNED OUT');
+          dispatchSignedIn({
+            type: 'UPDATE_SIGN_IN',
+            payload: {userToken: null},
+          });
+        });
+    } catch (error) {
+      Alert.alert(error.code);
+    }
+  }
   return (
     <View style={styles.container}>
       <DrawerContentScrollView {...props}>
@@ -160,6 +180,7 @@ export default function DrawerContent(props) {
           </View>
         </View>
       </DrawerContentScrollView>
+
       <DrawerItem
         label="Sign Out"
         icon={({color, size}) => (
@@ -170,6 +191,9 @@ export default function DrawerContent(props) {
             size={size}
           />
         )}
+        onPress={() => {
+          signOut();
+        }}
       />
     </View>
   );
